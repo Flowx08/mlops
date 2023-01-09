@@ -1,7 +1,7 @@
 # MLOPS
 
 Overall goal of the project:
-- For this project, we want to create an application that detects and classifies objects in images, using the pre-trained YOLOS model. If required, we will fine-tune this model for a specific class of object or objects.
+- For this project, we want to create an application that detects and classifies objects in images, using the pre-trained YOLOS model. If required, we will fine-tune this model for a specific class of object or objects. Alternatively, we can evaluate the model performance on a dataset using some best-practice scoring metrics.
 
 Framework:
 - Huggingface Transformers Repository
