@@ -1,3 +1,6 @@
+import sys
+sys.path.append('./src/models/')
+
 import torch
 import torchvision
 import numpy as np

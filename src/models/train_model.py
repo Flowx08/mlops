@@ -13,11 +13,9 @@ from model import FCModel
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import WandbLogger
 
-
 @click.group()
 def cli():
     pass
-
 
 @click.command()
 @click.option("--lr", default=hyperparameters.learningrate, help='learning rate to use for training')
