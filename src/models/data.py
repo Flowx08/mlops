@@ -2,9 +2,11 @@ import torch
 import torchvision
 import numpy as np
 from pathlib import Path
+from torch.utils.data import Dataset, DataLoader
+from hyperparameters import *
 
 
-class CorruptedMNISTLoader(torch.utils.data.dataloader.Dataset):
+class CorruptedMNIST(torch.utils.data.dataloader.Dataset):
     def __init__(self, path, train, transform=None):
         self.path = path
         if (train):
@@ -39,13 +41,15 @@ class CorruptedMNISTLoader(torch.utils.data.dataloader.Dataset):
         return torch_array, label
 
 
-def mnist():
+def corrupted_mnist(batch_size):
     # exchange with the corrupted mnist dataset
     transforms = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize((0.5,), (0.5,)),
         ])
-    train = CorruptedMNISTLoader(path="../../../data/corruptmnist/", transform=transforms, train=True)
-    test = CorruptedMNISTLoader(path="../../../data/corruptmnist/", transform=transforms, train=False)
-    return train, test
+    train = CorruptedMNIST(path="./data/raw/corruptmnist/", transform=transforms, train=True)
+    train_loader = DataLoader(train, batch_size=batch_size, shuffle=True)
+    test = CorruptedMNIST(path="./data/raw/corruptmnist/", transform=transforms, train=False)
+    test_loader = DataLoader(test, batch_size=batch_size, shuffle=True)
+    return train_loader, test_loader
 

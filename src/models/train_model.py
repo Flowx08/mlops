@@ -3,9 +3,13 @@ import sys
 import torch
 import torch.nn as nn
 import click
+from hyperparameters import *
+import wandb
 
-from data import mnist
+from data import corrupted_mnist
 from model import FCModel
+from pytorch_lightning import Trainer
+from pytorch_lightning.loggers import WandbLogger
 
 
 @click.group()
@@ -14,72 +18,72 @@ def cli():
 
 
 @click.command()
-@click.option("--lr", default=1e-3, help='learning rate to use for training')
-def train(lr):
-    print("Training day and night")
-    print(lr)
+@click.option("--lr", default=hyperparameters.learningrate, help='learning rate to use for training')
+@click.option("--batch_size", default=hyperparameters.batch_size, help='batch size to use for training')
+def train(lr, batch_size):
+    print("Training model...")
+    print("Learning rate: {}".format(lr))
+    print("Batch size: {}".format(batch_size))
+    print("Model path: {}".format(hyperparameters.model_path))
 
-    save_path = "./models/"
-
-    model = FCModel()
-    train_set, _ = mnist()
+    # Load dataset
+    print("Loading dataset...")
+    trainset, testset = corrupted_mnist(batch_size)
+    print("Done")
     
-    criterion = nn.NLLLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    epochs = 2
+    model = FCModel()
+    
+    # Setup wandb
+    print("Setup wandb...")
+    wandb.init(project="trainer-mnist", entity="32b", name='FCModel') 
+    wandb.config = {
+            "learning_rate": lr,
+            "epochs": hyperparameters.epochs,
+            "batch_size": batch_size
+            }
+    wandb_logger = WandbLogger(name='FCModel')
+    wandb_logger.watch(model)
+    print("Done")
 
-    model.train()
+    # Train
+    print("Training...")
+    trainer = Trainer(default_root_dir=hyperparameters.model_path, logger=wandb_logger)
+    trainer.fit(model, trainset, testset)
+    print("Done")
+    
+    torch.save(model.state_dict(), hyperparameters.model_path + 'model.pth')
+    print("Model saved at {}". format(hyperparameters.model_path + 'model.pth'))
 
-    # Training loop
-    for epoch in range(epochs):
-        mean_loss = 0.0
-        
-        # Iterate over the train_set
-        for it, (x, y) in enumerate(train_set):
-
-            # Forward pass
-            logits = model(x)
-            loss = criterion(logits, y)
-            mean_loss += loss;
-
-            # Backward pass
-            optimizer.zero_grad()
-            loss.backward()
-
-            # Update the model weights
-            optimizer.step()
-
-            if (it % 100 == 0):
-                mean_loss /= 100
-                print("Epoch {}, it {}, MeanLoss: {}".format(epoch, it, mean_loss))
-                mean_loss = 0.0
-
-        torch.save(model.state_dict(), save_path + 'model.pth')
-        print("model saved!")
-
-
+    
 
 @click.command()
 @click.argument("model_checkpoint")
 def evaluate(model_checkpoint):
     print("Evaluating until hitting the ceiling")
-    print(model_checkpoint)
+    print("Model checkpint path: {}".format(model_checkpoint))
+    
+    # Load dataset
+    print("Loading dataset...")
+    trainset, testset = corrupted_mnist(hyperparameters.batch_size)
+    print("Done")
+    
+    # Setup wandb
+    print("Setup wandb...")
+    wandb.init(project="trainer-mnist", entity="32b", name='FCModel') 
+    wandb.config = {
+            "learning_rate": hyperparameters.learningrate,
+            "epochs": hyperparameters.epochs,
+            "batch_size": hyperparameters.batch_size
+            }
+    wandb_logger = WandbLogger()
+    print("Done")
 
-    # TODO: Implement evaluation logic here
+    # Evaluate
     model = FCModel()
     model.load_state_dict(torch.load(model_checkpoint))
-    _, test_set = mnist()
-
-    criterion = nn.NLLLoss()
-    model.eval()
-
-    total_correct = 0
-    for it, (x, y) in enumerate(test_set):
-        logits = model(x)
-        loss = criterion(logits, y)
-        total_correct += logits.argmax(dim=1).eq(y).sum().item()
-
-    print("Accuracy: {}".format(total_correct / len(test_set)))
+    trainer = Trainer(logger=wandb_logger)
+    trainer.test(model, testset)
+    print("Done")
 
 
 cli.add_command(train)
