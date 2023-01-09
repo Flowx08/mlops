@@ -1,19 +1,18 @@
 # MLOPS
 
-OVERALL GOAL OF PROJECT:
-- For this project, we want to create an application that detection objects position in an image using a YOLO pre-trained model.
+Overall goal of the project:
+- For this project, we want to create an application that detects and classifies objects in images, using the pre-trained YOLOS model. If required, we will fine-tune this model for a specific class of object or objects. Alternatively, we can evaluate the model performance on a dataset using some best-practice scoring metrics.
 
-FRAMEWORK:
+Framework:
 - Huggingface Transformers Repository
-- Model 136. YOLOS (PyTorch)
-- Link to repo: https://huggingface.co/docs/transformers/main/model_doc/swin2sr?fbclid=IwAR2mjgms1a1nNWAweFZItsr6JqtLua0M3L3zD6Hi0KZAXLUuKIys9tu39ds
+- Model 168. YOLOS (PyTorch)
+- Link to repo: https://huggingface.co/docs/transformers/model_doc/yolos
 
-HOW WE INCLUDE THE FRAMEWORK IN THE PROJECT:
-- The pre-trained model will probably do the work out of the box. We are thinking of ways that we could possibly optimise it for certain use cases, 
-but are unsure what a sensible use-case could be. Are are unsure if it is a hard requirement that we do some kind of optimisation on the pre-trained model.
+How we include the framework in the project:
+- The pre-trained model will probably do the work out of the box. We are thinking of ways that we could possibly optimise it for certain use cases.
 
-WHAT DATA WE ARE RUNNING IT ON:
-- Any image, although possibly with some requirements vis-a-vis the minimum or maximum resolution.
+What data are we running it on:
+- Any image, although possibly with some requirements vis-a-vis what objects are in the list of classifiable objects.
 
-WHAT DEEP LEARNING MODEL WE EXPECT TO USE:
-- https://huggingface.co/docs/transformers/main/model_doc/swin2sr?fbclid=IwAR2mjgms1a1nNWAweFZItsr6JqtLua0M3L3zD6Hi0KZAXLUuKIys9tu39ds
+What deep learning model we expect to use:
+- https://huggingface.co/docs/transformers/model_doc/yolos
