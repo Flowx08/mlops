@@ -4,6 +4,8 @@ import torch
 import torch.nn as nn
 import click
 
+sys.path.append('./src/data/')
+
 from data import mnist
 from model import FCModel
 

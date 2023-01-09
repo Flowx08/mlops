@@ -6,7 +6,9 @@ import click
 from hyperparameters import *
 import wandb
 
+sys.path.append('./src/data/')
 from data import corrupted_mnist
+
 from model import FCModel
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import WandbLogger
