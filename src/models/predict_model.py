@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import click
 
-sys.path.append('./src/data/')
+sys.path.append("./src/data/")
 
 from data import mnist
 from model import FCModel
@@ -18,7 +18,7 @@ def cli():
 @click.command()
 @click.argument("model_checkpoint")
 @click.argument("datafile")
-def predict(model_checkpoint):
+def predict(model_checkpoint, data):
     print("Evaluating until hitting the ceiling")
     print(model_checkpoint)
 
@@ -30,7 +30,7 @@ def predict(model_checkpoint):
     criterion = nn.NLLLoss()
     model.eval()
 
-    transform = torchvision.transforms.Normalize((0.5,), (0.5,)),
+    transform = (torchvision.transforms.Normalize((0.5,), (0.5,)),)
     x = torch.as_tensor(np.load(datafile))
     x = transform(x)
 
@@ -38,17 +38,10 @@ def predict(model_checkpoint):
     loss = criterion(logits, y)
     result = logits.argmax(dim=1)
 
-    print("Result: {}".format(result)
+    print("Result: {}".format(result))
 
 
 cli.add_command(predict)
 
-
 if __name__ == "__main__":
     cli()
-
-
-    
-    
-    
-    

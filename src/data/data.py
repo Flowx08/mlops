@@ -1,5 +1,6 @@
 import sys
-sys.path.append('./src/models/')
+
+sys.path.append("./src/models/")
 
 import torch
 import torchvision
@@ -12,10 +13,10 @@ from hyperparameters import *
 class CorruptedMNIST(torch.utils.data.dataloader.Dataset):
     def __init__(self, path, train, transform=None):
         self.path = path
-        if (train):
-            self.file_names = list(Path(path).glob('train_*.npz'))
+        if train:
+            self.file_names = list(Path(path).glob("train_*.npz"))
         else:
-            self.file_names = list(Path(path).glob('test.npz'))
+            self.file_names = list(Path(path).glob("test.npz"))
         self.size = 5000 * len(self.file_names)
         self.files = []
         for name in self.file_names:
@@ -30,8 +31,8 @@ class CorruptedMNIST(torch.utils.data.dataloader.Dataset):
         tensor_id = item % 5000
         file = self.files[fileid]
 
-        images = file['images']
-        labels = file['labels']
+        images = file["images"]
+        labels = file["labels"]
         tensor = images[tensor_id]
         label = labels[tensor_id]
 
@@ -46,13 +47,18 @@ class CorruptedMNIST(torch.utils.data.dataloader.Dataset):
 
 def corrupted_mnist(batch_size):
     # exchange with the corrupted mnist dataset
-    transforms = torchvision.transforms.Compose([
-        torchvision.transforms.ToTensor(),
-        torchvision.transforms.Normalize((0.5,), (0.5,)),
-        ])
-    train = CorruptedMNIST(path="./data/raw/corruptmnist/", transform=transforms, train=True)
+    transforms = torchvision.transforms.Compose(
+        [
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Normalize((0.5,), (0.5,)),
+        ]
+    )
+    train = CorruptedMNIST(
+        path="./data/raw/corruptmnist/", transform=transforms, train=True
+    )
     train_loader = DataLoader(train, batch_size=batch_size, shuffle=True)
-    test = CorruptedMNIST(path="./data/raw/corruptmnist/", transform=transforms, train=False)
+    test = CorruptedMNIST(
+        path="./data/raw/corruptmnist/", transform=transforms, train=False
+    )
     test_loader = DataLoader(test, batch_size=batch_size, shuffle=True)
     return train_loader, test_loader
-
