@@ -7,9 +7,9 @@ from hyperparameters import *
 import wandb
 
 sys.path.append("./src/data/")
-from data import corrupted_mnist
+from data import garbage_dataset
 
-from model import FCModel
+from model import EfficientNetModel
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import WandbLogger
 
@@ -38,20 +38,20 @@ def train(lr, batch_size):
 
     # Load dataset
     print("Loading dataset...")
-    trainset, testset = corrupted_mnist(batch_size)
+    trainset, testset = garbage_dataset(batch_size, image_resize=hyperparameters.image_size)
     print("Done")
 
-    model = FCModel()
+    model = EfficientNetModel(hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num)
 
     # Setup wandb
     print("Setup wandb...")
-    wandb.init(project="trainer-mnist", entity="32b", name="FCModel")
+    wandb.init(project="garbage-recognition", entity="32b", name="EfficientNetModel")
     wandb.config = {
         "learning_rate": lr,
         "epochs": hyperparameters.epochs,
         "batch_size": batch_size,
     }
-    wandb_logger = WandbLogger(name="FCModel")
+    wandb_logger = WandbLogger(name="EfficientNetModel")
     wandb_logger.watch(model)
     print("Done")
 
@@ -73,12 +73,12 @@ def evaluate(model_checkpoint):
 
     # Load dataset
     print("Loading dataset...")
-    trainset, testset = corrupted_mnist(hyperparameters.batch_size)
+    trainset, testset = garbage_dataset(hyperparameters.batch_size, image_resize=hyperparameters.image_size)
     print("Done")
 
     # Setup wandb
     print("Setup wandb...")
-    wandb.init(project="trainer-mnist", entity="32b", name="FCModel")
+    wandb.init(project="garbage-recognition", entity="32b", name="EfficientNetModel")
     wandb.config = {
         "learning_rate": hyperparameters.learningrate,
         "epochs": hyperparameters.epochs,
@@ -88,7 +88,7 @@ def evaluate(model_checkpoint):
     print("Done")
 
     # Evaluate
-    model = FCModel()
+    model = EfficientNetModel(hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num)
     model.load_state_dict(torch.load(model_checkpoint))
     trainer = Trainer(logger=wandb_logger)
     trainer.test(model, testset)
