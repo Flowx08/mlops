@@ -69,7 +69,11 @@ Group 32
 >
 > Answer:
 
---- question 3 fill here ---
+We used the pre-trained EfficientNet B0 model from the list of PyTorch Image Models (https://arxiv.org/abs/1905.11946).
+
+TO-DO:
+- Add specific version + functionalities used.
+- Add whatever else we did with the model, such as fine-tuning, etc.
 
 ## Coding environment
 
@@ -115,6 +119,7 @@ Group 32
 > Answer:
 
 --- question 6 fill here ---
+- We used the Black framework. We should specify further.
 
 ## Version control
 
@@ -151,13 +156,13 @@ Group 32
 >
 > Answer length: 100-200 words.
 >
-> Example:
-> *We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in*
-> *addition to the main branch. To merge code we ...*
->
 > Answer:
 
---- question 9 fill here ---
+Because we did the vast majority of the work on this project while sitting together, we did not use pull requests at all, and only used branches very little. Our use of branches was mostly just for the sake of the exercise, since we are a 3 person who who mostly sat together.
+
+That being said, we have all worked extensively with branches and pull requests in the past, in the context of larger projects with more team members (both in other courses as well as at our respective workplaces).
+
+Branches and pull requests can improve version control because they reduce the risk of code conflicts and errors. This is because each branch is a separate copy of the codebase, which allows developers to make changes without affecting the main codebase. This allows developers to experiment with new features, fix bugs, or refactor code without affecting the main codebase. Once the changes have been tested and are ready to be merged back into the main codebase, a developer creates a pull request. A pull request is a request for other developers to review and approve the changes made on a branch. Other developers can review the code, comment on it, and suggest changes. This allows teams to catch and fix issues before they're merged into the main codebase. Once the changes are approved, the pull request can be merged into the main codebase. This ensures that only stable, well-reviewed changes are added to the main codebase, which helps to maintain the overall stability and quality of the codebase.
 
 ### Question 10
 
@@ -172,7 +177,9 @@ Group 32
 >
 > Answer:
 
---- question 10 fill here ---
+Yes, we did use DVC for managing the data in our project. It mostly helped us to share the data between us, since datasets are typically too large to be stored on a Git repository.
+
+In addition to this, DVC is very useful when needing to reproduce experiment, as it can track and store both inputs, dependencies and parameters, and due to its cache system, each team member can selectively access the parts of the data which are needed, instead of having to download the whole thing.
 
 ### Question 11
 
