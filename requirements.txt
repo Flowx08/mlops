@@ -14,3 +14,4 @@ torchvision
 wandb
 pytorch-lightning
 pytest
+efficientnet_pytorch
