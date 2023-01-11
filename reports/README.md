@@ -49,18 +49,14 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 1 fill here ---
+Group 32
 
 ### Question 2
 > **Enter the study number for each member in the group**
 >
-> Example:
->
-> *sXXXXXX, sXXXXXX, sXXXXXX*
->
 > Answer:
 
---- question 2 fill here ---
+*s202795, s212969, s133192*
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
