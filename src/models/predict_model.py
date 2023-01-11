@@ -4,16 +4,11 @@ import torch
 import torch.nn as nn
 import click
 
-sys.path.append("./src/data/")
-
-from data import mnist
 from model import FCModel
-
 
 @click.group()
 def cli():
     pass
-
 
 @click.command()
 @click.argument("model_checkpoint")
@@ -27,7 +22,6 @@ def predict(model_checkpoint, data):
     model.load_state_dict(torch.load(model_checkpoint))
     _, test_set = mnist()
 
-    criterion = nn.NLLLoss()
     model.eval()
 
     transform = (torchvision.transforms.Normalize((0.5,), (0.5,)),)
