@@ -3,39 +3,33 @@ import sys
 import torch
 import torch.nn as nn
 import click
+import numpy as np
 
-from model import FCModel
+from model import EfficientNetModel
+from hyperparameters import *
+from PIL import Image
 
-@click.group()
-def cli():
-    pass
-
-@click.command()
-@click.argument("model_checkpoint")
-@click.argument("datafile")
-def predict(model_checkpoint, data):
+def predict_garbage(model_checkpoint, image_path):
     print("Evaluating until hitting the ceiling")
     print(model_checkpoint)
 
-    # TODO: Implement evaluation logic here
-    model = FCModel()
+    model = EfficientNetModel(
+        hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num
+    )
     model.load_state_dict(torch.load(model_checkpoint))
-    _, test_set = mnist()
-
     model.eval()
 
-    transform = (torchvision.transforms.Normalize((0.5,), (0.5,)),)
-    x = torch.as_tensor(np.load(datafile))
-    x = transform(x)
+    # Load the image
+    img = Image.open(image_path)
+    img = img.resize((hyperparameters.image_size, hyperparameters.image_size))
+    img = np.array(img)
+    img = torch.tensor(img)
+    img = img.div(255) # Normalize
+    img = img.unsqueeze(0)
+    img = img.permute(0, 3, 1, 2)
+    print(img.shape)
 
-    logits = model(x)
-    loss = criterion(logits, y)
+    logits = model.forward(img)
     result = logits.argmax(dim=1)
 
-    print("Result: {}".format(result))
-
-
-cli.add_command(predict)
-
-if __name__ == "__main__":
-    cli()
+    return int(result.item())

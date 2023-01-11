@@ -38,10 +38,14 @@ def train(lr, batch_size):
 
     # Load dataset
     print("Loading dataset...")
-    trainset, testset = garbage_dataset(batch_size, image_resize=hyperparameters.image_size)
+    trainset, testset = garbage_dataset(
+        batch_size, image_resize=hyperparameters.image_size
+    )
     print("Done")
 
-    model = EfficientNetModel(hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num)
+    model = EfficientNetModel(
+        hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num
+    )
 
     # Setup wandb
     print("Setup wandb...")
@@ -73,7 +77,9 @@ def evaluate(model_checkpoint):
 
     # Load dataset
     print("Loading dataset...")
-    trainset, testset = garbage_dataset(hyperparameters.batch_size, image_resize=hyperparameters.image_size)
+    trainset, testset = garbage_dataset(
+        hyperparameters.batch_size, image_resize=hyperparameters.image_size
+    )
     print("Done")
 
     # Setup wandb
@@ -88,7 +94,9 @@ def evaluate(model_checkpoint):
     print("Done")
 
     # Evaluate
-    model = EfficientNetModel(hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num)
+    model = EfficientNetModel(
+        hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num
+    )
     model.load_state_dict(torch.load(model_checkpoint))
     trainer = Trainer(logger=wandb_logger)
     trainer.test(model, testset)
