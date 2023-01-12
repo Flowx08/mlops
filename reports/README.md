@@ -295,6 +295,7 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 
 We used the following GCP services:
 - Compute Engine: A service that allows users to create and manage virtual machines on the cloud, with various options for configuring CPU, memory, storage, and networking. The service also offers features such as autoscaling, load balancing, snapshots, Preemptible VMs, and Custom Machine Types to help manage and optimize the usage of resources.
+- Cloud Run: This service is a fully-managed serverless platform for deploying and scaling containerized applications on Google Cloud. It allows for automatic scaling, security, and monitoring of stateless containers with support for a wide range of languages and frameworks, and integration with other Google Cloud services.
 
 ### Question 18
 
