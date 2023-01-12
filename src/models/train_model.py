@@ -34,7 +34,7 @@ def train(lr, batch_size):
     print("Training model...")
     print("Learning rate: {}".format(lr))
     print("Batch size: {}".format(batch_size))
-    print("Model path: {}".format(hyperparameters.model_path))
+    print("Model path: {}".format(hyperparameters.save_model_path))
 
     # Load dataset
     print("Loading dataset...")
@@ -61,12 +61,12 @@ def train(lr, batch_size):
 
     # Train
     print("Training...")
-    trainer = Trainer(default_root_dir=hyperparameters.model_path, logger=wandb_logger)
+    trainer = Trainer(default_root_dir=hyperparameters.save_model_path, logger=wandb_logger)
     trainer.fit(model, trainset, testset)
     print("Done")
 
-    torch.save(model.state_dict(), hyperparameters.model_path + "model.pth")
-    print("Model saved at {}".format(hyperparameters.model_path + "model.pth"))
+    torch.save(model.state_dict(), hyperparameters.save_model_path + "model.pth")
+    print("Model saved at {}".format(hyperparameters.save_model_path + "model.pth"))
 
 
 @click.command()

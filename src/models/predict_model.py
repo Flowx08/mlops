@@ -9,6 +9,7 @@ from model import EfficientNetModel
 from hyperparameters import *
 from PIL import Image
 
+
 def predict_garbage(model_checkpoint, image_path):
     print("Evaluating until hitting the ceiling")
     print(model_checkpoint)
@@ -24,7 +25,7 @@ def predict_garbage(model_checkpoint, image_path):
     img = img.resize((hyperparameters.image_size, hyperparameters.image_size))
     img = np.array(img)
     img = torch.tensor(img)
-    img = img.div(255) # Normalize
+    img = img.div(255)  # Normalize
     img = img.unsqueeze(0)
     img = img.permute(0, 3, 1, 2)
     print(img.shape)
