@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 import requests
 import os
 import sys
+from fastapi.staticfiles import StaticFiles
 
 sys.path.append("./src/models/")
 
@@ -10,11 +11,13 @@ from hyperparameters import hyperparameters
 
 app = FastAPI()
 
+app.mount("/static/", StaticFiles(directory="./src/interface/",html = True), name="interface")
 
+"""
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
+async def read_root():
+    return FileResponse('index.html')
+"""
 
 @app.post("/predict/")
 def predict(url: str):

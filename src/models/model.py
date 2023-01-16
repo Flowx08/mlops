@@ -1,4 +1,3 @@
-from pytorch_lightning import LightningModule
 import torchmetrics
 from torch import nn, optim
 from model import *
@@ -17,6 +16,9 @@ class EfficientNetModel(LightningModule):
 
         self.num_classes = num_classes
 
+        self.accuracy = torchmetrics.Accuracy(task="multiclass", num_classes=self.num_classes)
+        #self.accuracy = torch.nn.ModuleDict({'precision' : torchmetrics.Precision()})
+
         # Load pre-trained model
         self.ef = EfficientNet.from_pretrained("efficientnet-b{}".format(model_num))
         features_size = [1280, 1280, 1408, 1536, 1792, 2048, 2304, 2560]
@@ -28,16 +30,30 @@ class EfficientNetModel(LightningModule):
             ),
             nn.LogSoftmax(dim=-1),
         )
-
+        
+        """
         # Freeze weights of the model except for the last layer
         for name, param in self.ef.named_parameters():
             if name.split(".")[-1] not in ["weight", "bias"]:
                 param.requires_grad = False
+        """
+
+        # Set the requires_grad attribute of all layers except the last block and last layer to False
+        for name, child in self.ef.named_children():
+            if "_blocks.22" not in name and "_fc" not in name:
+                for param in child.parameters():
+                    param.requiresGrad = False
+
+        """
+        # Freeze the weights of the first layers
+        for param in self.ef.parameters():
+            param.requiresGrad = False
 
         # The last layer has different name than the previous layers
         for name, param in self.ef._fc.named_parameters():
             if name.split(".")[-1] in ["weight", "bias"]:
                 param.requires_grad = True
+        """
 
         # Define the data augmentation transforms
         self.data_augumentation = transforms.Compose(
@@ -63,10 +79,7 @@ class EfficientNetModel(LightningModule):
         loss = self.criterion(logits, torch.flatten(y))
 
         preds = torch.argmax(logits, dim=1)
-        accuracy = torchmetrics.Accuracy(
-            task="multiclass", num_classes=self.num_classes
-        )
-        acc = accuracy(preds, torch.flatten(y))
+        acc = self.accuracy(preds, torch.flatten(y))
 
         self.log("train_loss", loss, on_step=True, on_epoch=True, logger=True)
         self.log("train_acc", acc, on_step=True, on_epoch=True, logger=True)
@@ -79,10 +92,7 @@ class EfficientNetModel(LightningModule):
         loss = self.criterion(logits, torch.flatten(y))
 
         preds = torch.argmax(logits, dim=1)
-        accuracy = torchmetrics.Accuracy(
-            task="multiclass", num_classes=self.num_classes
-        )
-        acc = accuracy(preds, torch.flatten(y))
+        acc = self.accuracy(preds, torch.flatten(y))
 
         self.log("val_loss", loss, prog_bar=True)
         self.log("val_acc", acc, prog_bar=True)
@@ -95,10 +105,7 @@ class EfficientNetModel(LightningModule):
         loss = self.criterion(logits, torch.flatten(y))
 
         preds = torch.argmax(logits, dim=1)
-        accuracy = torchmetrics.Accuracy(
-            task="multiclass", num_classes=self.num_classes
-        )
-        acc = accuracy(preds, torch.flatten(y))
+        acc = self.accuracy(preds, torch.flatten(y))
 
         self.log("test_loss", loss, prog_bar=True)
         self.log("test_acc", acc, prog_bar=True)

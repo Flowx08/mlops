@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Image Prediction</title>
-  </head>
-  <body>
-    <div>
-      <img id="image" width="300" height="300" src="https://www.belson.com/Images/10GPCL-WCD24CL-WCD24C-001-C.jpg" alt="Predicted image">
-    </div>
-    <div>
-		<label for="image-url">Image URL:</label><br>
-      <input type="text" id="image-url" name="image-url" style="width:300px" value="https://www.belson.com/Images/10GPCL-WCD24CL-WCD24C-001-C.jpg">
-    </div>
-    <div>
-      <button id="predict-button" style="width:300px" onclick="predict()">Predict</button>
-    </div>
-    <div>
-	<label>Result:</label><br>
-    </div>
-    <script>
-      function predict() {
-        var imageUrl = document.getElementById("image-url").value;
-        document.getElementById("image").src = imageUrl;
-        fetch('/predict', {
-          method: 'POST',
-          body: JSON.stringify({image_url: imageUrl}),
-          headers: { 'Content-Type': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
-      }
-    </script>
-  </body>
+	<head>
+		<title>Image Prediction</title>
+	</head>
+	<body>
+		<div>
+			<img id="image" width="300" height="300" src="https://www.belson.com/Images/10GPCL-WCD24CL-WCD24C-001-C.jpg" alt="Predicted image">
+		</div>
+		<div>
+			<label for="image-url">Image URL:</label><br>
+			<input type="text" id="image-url" name="image-url" style="width:300px" value="https://www.belson.com/Images/10GPCL-WCD24CL-WCD24C-001-C.jpg">
+		</div>
+		<div>
+			<button id="predict-button" style="width:300px" onclick="predict()">Predict</button>
+		</div>
+		<div>
+			<label id="result-label">Result:</label><br>
+		</div>
+		<script>
+			async function predict() 
+			{
+				document.getElementById("result-label").textContent = "Prediction...";
+				var imageUrl = document.getElementById("image-url").value;
+				document.getElementById("image").src = imageUrl;
+
+				const response = await fetch(`/predict/?url=${imageUrl}`, {
+					method: 'POST',
+				});
+				const result = await response.json();
+				document.getElementById("result-label").textContent = "Result: " + result.class_name;
+				console.log(result.class_name);
+			}
+		</script>
+	</body>
 </html>
