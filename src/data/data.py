@@ -19,7 +19,7 @@ def garbage_dataset(batch_size, image_resize=224):
     )
     dataset = datasets.ImageFolder("./data/raw/garbage/", transform=transform)
     dataloader = torch.utils.data.DataLoader(
-        dataset, batch_size=batch_size, shuffle=True
+        dataset, batch_size=batch_size, shuffle=True, num_workers=hyperparameters.num_workers
     )
 
     # Split the dataset into training and test sets

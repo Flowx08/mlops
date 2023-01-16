@@ -6,11 +6,12 @@ class hyperparameters:
     # Model hyperparameters
     model_output_size = 10
     model_filter_k = 10
-    image_size = 224 #260
-    efficientnet_num = 0 #2
+    image_size = 260 #224
+    efficientnet_num = 2 #0
     num_classes = 6
 
     # Training params
     learningrate = 1e-4
     epochs = 2
     batch_size = 32
+    num_workers = 8
