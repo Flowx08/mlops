@@ -13,10 +13,12 @@ COPY requirements.txt requirements.txt
 COPY setup.py setup.py
 COPY src/ src/
 COPY data/ data/
+COPY models/ models/
 COPY tests/ tests/
-RUN mkdir ./models
 RUN chmod 777 ./models
 
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt --no-cache-dir
 
-ENTRYPOINT ["uvicorn", "src.deployment.main:app", "--reload", "--port", "80"]
+EXPOSE 80
+ENTRYPOINT ["uvicorn", "src.deployment.main:app", "--reload", "--port", "80", "--host", "0.0.0.0"]

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+from starlette.responses import FileResponse
 import requests
 import os
 import sys
@@ -11,13 +12,11 @@ from hyperparameters import hyperparameters
 
 app = FastAPI()
 
-app.mount("/static/", StaticFiles(directory="./src/interface/",html = True), name="interface")
+#app.mount("/static/", StaticFiles(directory="./src/interface/",html = True), name="interface")
 
-"""
 @app.get("/")
 async def read_root():
-    return FileResponse('index.html')
-"""
+    return FileResponse('./src/interface/index.html')
 
 @app.post("/predict/")
 def predict(url: str):
