@@ -15,3 +15,6 @@ wandb
 pytorch-lightning
 pytest
 efficientnet_pytorch
+uvicorn
+fastapi
+hydra-core
