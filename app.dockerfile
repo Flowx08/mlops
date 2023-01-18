@@ -19,6 +19,7 @@ RUN chmod 777 ./models
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install --ignore-installed uvicorn==0.20.0
 
 EXPOSE 80
-ENTRYPOINT ["uvicorn", "src.deployment.main:app", "--reload", "--port", "80", "--host", "0.0.0.0"]
+CMD ["uvicorn", "src.deployment.main:app", "--reload", "--port", "80", "--host", "0.0.0.0"]
