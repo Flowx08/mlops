@@ -17,7 +17,7 @@ def predict_garbage(model_checkpoint, image_path):
     model = EfficientNetModel(
         hyperparameters.num_classes, model_num=hyperparameters.efficientnet_num
     )
-    model.load_state_dict(torch.load(model_checkpoint))
+    model.load_state_dict(torch.load(model_checkpoint, map_location=torch.device('cpu')))
     model.eval()
 
     # Load the image
