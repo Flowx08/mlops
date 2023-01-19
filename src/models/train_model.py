@@ -21,25 +21,21 @@ def cli():
 
 @click.command()
 @click.option(
-    "--lr",
-    default=hyperparameters.learningrate,
-    help="learning rate to use for training",
+    "--config_file",
+    default="./src/models/config.yaml",
+    help="Config file path with hyperparameters",
 )
-@click.option(
-    "--batch_size",
-    default=hyperparameters.batch_size,
-    help="batch size to use for training",
-)
-def train(lr, batch_size):
+def train(config_file):
+    hyperparameters = OmegaConf.load(config_file)
     print("Training model...")
-    print("Learning rate: {}".format(lr))
-    print("Batch size: {}".format(batch_size))
+    print("Learning rate: {}".format(hyperparameters.learningrate))
+    print("Batch size: {}".format(hyperparameters.batch_size))
     print("Model path: {}".format(hyperparameters.save_model_path))
 
     # Load dataset
     print("Loading dataset...")
     trainset, testset = garbage_dataset(
-        batch_size, image_resize=hyperparameters.image_size
+        hyperparameters.batch_size, image_resize=hyperparameters.image_size
     )
     print("Done")
 
@@ -51,9 +47,9 @@ def train(lr, batch_size):
     print("Setup wandb...")
     wandb.init(project="garbage-recognition", entity="32b", name="EfficientNetModel")
     wandb.config = {
-        "learning_rate": lr,
+        "learning_rate": hyperparameters.learningrate,
         "epochs": hyperparameters.epochs,
-        "batch_size": batch_size,
+        "batch_size": hyperparameters.batch_size,
     }
     wandb_logger = WandbLogger(name="EfficientNetModel")
     wandb_logger.watch(model)

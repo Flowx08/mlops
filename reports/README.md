@@ -69,11 +69,7 @@ Group 32
 >
 > Answer:
 
-We used the pre-trained EfficientNet B0 model from the list of PyTorch Image Models (https://arxiv.org/abs/1905.11946).
-
-TO-DO:
-- Add specific version + functionalities used.
-- Add whatever else we did with the model, such as fine-tuning, etc.
+We used the pre-trained EfficientNet B2 model from the list of PyTorch Image Models (https://arxiv.org/abs/1905.11946). We trained the last 2 layer of the EfficientNet B2 model on the task of garbage recognition, while freezing the parameters of the other layers. Using this framework allowed us to reach good classification accuracy (93% on 6 classes) with little training data (around 2000 images).
 
 ## Coding environment
 
@@ -85,14 +81,16 @@ TO-DO:
 > **through to get an exact copy of your environment.**
 >
 > Answer length: 100-200 words
->
-> Example:
-> *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a*
-> *complete copy of our development enviroment, one would have to run the following commands*
->
 > Answer:
 
---- question 4 fill here ---
+For meaning our dependencies we used python3 pip for managing the required packages and DVC for the data dependencies.
+We put all the packages required for the code in a 'requirements.txt' file and the DVC dependencies files in data.dvc and models.dvc.
+A new team member would just need to do the following to get started:
+- Clone the project's repository onto their local machine.
+- Create a virtual environment using python 3.x
+- Activate the virtual environment.
+- Install the dependencies listed in the project's requirements or package file using 'pip install -r requirements.txt'.
+- Pull the data from Google drive by running 'dvc pull'.
 
 ### Question 5
 
@@ -100,14 +98,19 @@ TO-DO:
 > **code. Did you fill out every folder or only a subset?**
 >
 > Answer length: 100-200 words
->
-> Example:
-> *From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder*
-> *because we did not use any ... in our project. We have added an ... folder that contains ... for running our*
-> *experiments.*
 > Answer:
 
---- question 5 fill here ---
+We used the cookie cutter template and we filled out every folder except the folder 'references' which was not required since it was a small project and we did not need any reading material to share.
+The final structure of our repository is the following:
+- Data: here we store all the dataset images + other data required for testing. This folder is created and populated after running 'dvc pull'.
+- Models: here we store all the trained models parameters. This folder is created and populated after running 'dvc pull'.
+- Notebooks: here we store 2 jupyter notebooks, one used for preliminaty testing of the framework and another one to train contains code to train the model using google collab, by fetching out git repository and running the appropriate scripts.
+- requirements.txt: In this file we store all the python3 pip packages needed to run our code and tests.
+- Scripts: where we store all the utility scripts for building docker, running the code, formatting the style ecc
+- src: the source code for training and deployment
+- tests: unit testing
+- app.dockerfile: dockerfile for deployment
+- train.dockerfile: dockerfile for training
 
 ### Question 6
 
@@ -115,11 +118,11 @@ TO-DO:
 > **concepts matters in larger projects.**
 >
 > Answer length: 50-100 words.
->
 > Answer:
 
---- question 6 fill here ---
-- We used the Black framework. We should specify further.
+We used the Black framework to format our python code in the ./src/ and ./tests/ folders.
+These concepts are important in larger projects because they help to ensure consistency and readability in the codebase. Consistent code formatting and naming conventions make it easier for developers to understand and navigate the code, which can improve productivity and reduce errors.
+
 
 ## Version control
 
@@ -132,7 +135,7 @@ TO-DO:
 >
 > Answer:
 
---- question 7 fill here ---
+We implemented 2 tests: one for testing the loading the dataset and the other one for testing the  loading of the model and the feedforeward pass.
 
 ### Question 8
 
@@ -140,14 +143,11 @@ TO-DO:
 > **to), would you still trust it to be error free? Explain you reasoning.**
 >
 > **Answer length: 100-200 words.**
->
-> Example:
-> *The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our **
-> *code and even if we were then...*
->
 > Answer:
 
---- question 8 fill here ---
+Our code coverage was 76%. Interestingly most source code files had a coverage of 100% except for src/models/model.py which has a coverage of 56% since we haven't tested all the 
+model methods.
+Even if the code coverage was 100% that would not guarantee that the code is error-free. For example, it is possible for a test suite to be written poorly and not cover all possible scenarios, even if all lines of code are executed. Additionally, 100% code coverage does not take into account other factors such as proper handling of edge cases, security vulnerabilities, and performance issues.
 
 ### Question 9
 
@@ -158,9 +158,7 @@ TO-DO:
 >
 > Answer:
 
-Because we did the vast majority of the work on this project while sitting together, we did not use pull requests at all, and only used branches very little. Our use of branches was mostly just for the sake of the exercise, since we are a 3 person who who mostly sat together.
-
-That being said, we have all worked extensively with branches and pull requests in the past, in the context of larger projects with more team members (both in other courses as well as at our respective workplaces).
+Because we did the vast majority of the work on this project while sitting together, we did not use pull requests at all, and only used branches very little. Our use of branches was mostly just for the sake of the exercise, since we are a 3 person who who mostly sat together. We organized the branches in 'main' branch and 'dev' branch. The idea was to push our commit to the dev branch and only merge the dev branch with the main branch when we were sure that the code was working properly.
 
 Branches and pull requests can improve version control because they reduce the risk of code conflicts and errors. This is because each branch is a separate copy of the codebase, which allows developers to make changes without affecting the main codebase. This allows developers to experiment with new features, fix bugs, or refactor code without affecting the main codebase. Once the changes have been tested and are ready to be merged back into the main codebase, a developer creates a pull request. A pull request is a request for other developers to review and approve the changes made on a branch. Other developers can review the code, comment on it, and suggest changes. This allows teams to catch and fix issues before they're merged into the main codebase. Once the changes are approved, the pull request can be merged into the main codebase. This ensures that only stable, well-reviewed changes are added to the main codebase, which helps to maintain the overall stability and quality of the codebase.
 
@@ -171,13 +169,9 @@ Branches and pull requests can improve version control because they reduce the r
 >
 > Answer length: 100-200 words.
 >
-> Example:
-> *We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our*
-> *pipeline*
->
 > Answer:
 
-Yes, we did use DVC for managing the data in our project. It mostly helped us to share the data between us, since datasets are typically too large to be stored on a Git repository.
+Yes, we did use DVC for managing the data in our project. It mostly helped us to share the data between us, since datasets are typically too large to be stored on a Git repository. In particular we used it to share the content of the ./data/ folder (containinig the dataset) and the ./models/ folder (containing the trained models parameters).
 
 In addition to this, DVC is very useful when needing to reproduce experiment, as it can track and store both inputs, dependencies and parameters, and due to its cache system, each team member can selectively access the parts of the data which are needed, instead of having to download the whole thing.
 
@@ -188,14 +182,10 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > **your github actions workflow.**
 >
 > Answer length: 200-300 words.
->
-> Example:
-> *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
-> *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
->
 > Answer:
 
 --- question 11 fill here ---
+TODO
 
 ## Running code and tracking experiments
 
@@ -208,13 +198,12 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > **run a experiment.**
 >
 > Answer length: 50-100 words.
->
-> Example:
-> *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
->
 > Answer:
 
---- question 12 fill here ---
+We used hydra to store all the hyperparameters for each experiment. When we wanted to run an experiment we would pass the filepath of the config.yaml that we wanted to use, to the training script as  follows:
+```
+python3 ./src/models/train_models.py train --config_file=./src/models/config.yaml
+```
 
 ### Question 13
 
@@ -222,14 +211,9 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > **is lost when running experiments and that your experiments are reproducible?**
 >
 > Answer length: 100-200 words.
->
-> Example:
-> *We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment*
-> *one would have to do ...*
->
 > Answer:
 
---- question 13 fill here ---
+Since we used yaml config files to store the experiment parameters and used hydra to load those parameters, reproducing experiments was straightforeward: when reproducing a particular experiment we would pass the appropriate config file path to the python script and all the correct hyperparameters would be used for the training (as explained in the previous answer).
 
 ### Question 14
 
@@ -239,14 +223,11 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
->
-> Example:
-> *As seen in the first image when have tracked ... and ... which both inform us about ... in our experiments.*
-> *As seen in the second image we are also tracking ... and ...*
->
 > Answer:
 
---- question 14 fill here ---
+	![[wandb_screenshot_1.png]]
+	![[wandb_screenshot_2.png]]
+The pictures included show graphs from our logs in weight and bias. In particular we decided to monitor the loss and accuracy on the trainingset and testingset while training.  These metrics are important because they provide a way to evaluate the performance of a model, and help to identify areas where the model can be improved. Additionally, they can be used to compare different models and select the best one for a given task. In particular the loss it's usefull to see if the training is going well. Over time we expect the loss to keep going down if the neural network is converging to a solution. The accuracy on the testset is useful to see the generalization capabilities of the model and to compare it to other trained models in order to choose which one to use for the deployment phase.
 
 ### Question 15
 
@@ -254,14 +235,10 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > **experiments? Include how you would run your docker images and include a link to one of your docker files.**
 >
 > Answer length: 100-200 words.
->
-> Example:
-> *For our project we developed several images: one for training, inference and deployment. For example to run the*
-> *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
->
 > Answer:
 
---- question 15 fill here ---
+In our project we made 2 different docker images: one for training the model and one for deploying it with fastapi. The first docker images is created using the config file train.dockerfile
+in our repository while the other one is created using the app.dockerfile. We made some bash script to easily build and run the docker images. We build the image by running ./scripts/docker_app_build.sh and we execute the image by using the script ./scripts/docker_app_run.sh.
 
 ### Question 16
 
