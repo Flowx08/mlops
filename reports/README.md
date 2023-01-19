@@ -225,8 +225,8 @@ Since we used yaml config files to store the experiment parameters and used hydr
 > Answer length: 200-300 words + 1 to 3 screenshots.
 > Answer:
 
-	![[wandb_screenshot_1.png]]
-	![[wandb_screenshot_2.png]]
+	![[./figures/wandb_screenshot_1.png]]
+	![[./figures/wandb_screenshot_2.png]]
 The pictures included show graphs from our logs in weight and bias. In particular we decided to monitor the loss and accuracy on the trainingset and testingset while training.  These metrics are important because they provide a way to evaluate the performance of a model, and help to identify areas where the model can be improved. Additionally, they can be used to compare different models and select the best one for a given task. In particular the loss it's usefull to see if the training is going well. Over time we expect the loss to keep going down if the neural network is converging to a solution. The accuracy on the testset is useful to see the generalization capabilities of the model and to compare it to other trained models in order to choose which one to use for the deployment phase.
 
 ### Question 15
@@ -246,14 +246,9 @@ in our repository while the other one is created using the app.dockerfile. We ma
 > **try to profile your code or do you think it is already perfect?**
 >
 > Answer length: 100-200 words.
->
-> Example:
-> *Debugging method was dependent on group member. Some just used ... and others used ... . We did a single profiling*
-> *run of our main code at some point that showed ...*
->
 > Answer:
 
---- question 16 fill here ---
+Since our code base was small we did not perform any debudding and most errors could be easily fixed given the python error logs messages. We did use the python debugger (pdb) as exercise on the code and it showed that the code was working as intended.
 
 ## Working in the cloud
 
@@ -264,14 +259,11 @@ in our repository while the other one is created using the app.dockerfile. We ma
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
 > Answer length: 50-200 words.
->
-> Example:
-> *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
->
 > Answer:
 
 We used the following GCP services:
 - Compute Engine: A service that allows users to create and manage virtual machines on the cloud, with various options for configuring CPU, memory, storage, and networking. The service also offers features such as autoscaling, load balancing, snapshots, Preemptible VMs, and Custom Machine Types to help manage and optimize the usage of resources.
+- Container Registry: It is a fully-managed, scalable, and secure service that can be used to store, manage and distribute Docker images.
 - Cloud Run: This service is a fully-managed serverless platform for deploying and scaling containerized applications on Google Cloud. It allows for automatic scaling, security, and monitoring of stateless containers with support for a wide range of languages and frameworks, and integration with other Google Cloud services.
 
 ### Question 18
@@ -288,6 +280,7 @@ We used the following GCP services:
 > Answer:
 
 --- question 18 fill here ---
+TODO
 
 ### Question 19
 
@@ -306,6 +299,7 @@ We used the following GCP services:
 > Answer:
 
 --- question 20 fill here ---
+TODO
 
 ### Question 21
 
@@ -315,6 +309,7 @@ We used the following GCP services:
 > Answer:
 
 --- question 21 fill here ---
+TODO
 
 ### Question 22
 
@@ -331,6 +326,7 @@ We used the following GCP services:
 > Answer:
 
 --- question 22 fill here ---
+TODO
 
 ### Question 23
 
