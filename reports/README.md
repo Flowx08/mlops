@@ -337,10 +337,6 @@ We made a REST api to access our model using fastAPI in python. We also made a s
 >
 > Answer length: 100-200 words.
 >
-> Example:
-> *We did not manage to implement monitoring. We would like to have monitoring implemented such that over time we could*
-> *measure ... and ... that would inform us about this ... behaviour of our application.*
->
 > Answer:
 
 For the final project, we used Weights & Biases for monitoring our model's training progress. However, we do not employ any monitoring for our deployed model on GCloud.
