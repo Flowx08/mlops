@@ -400,7 +400,9 @@ and the results are returned and displayed to the user.
 >
 > Answer:
 
---- question 26 fill here ---
+The two biggest challenges that we faced in this project relates to Docker and DVC. Specificially, we had one group member for whom DVC did not work (for some reason we have yet to identify), and another group member who could not push the project to GCloud (possibly due to an issue related to having several GCloud accounts).
+
+Far and away the most troublesome part of the project was getting Docker to work. All members of our group are Mac users, and as we have learned throughout this project, Docker doesn't work very well on Macs. Some of the problems we encountered included Docker frequently crashing, which would consistently require a fresh reinstall of the program, along with a restart of one's laptop, along with Docker mysteriously eating up system disk space each time we tried to build the project (we have since discovered that this was due to Docker containers not being deleted from the System Library when containers and images are deleted via rm and rmi from the terminal; we suggest that the need to run the command 'docker system prune -a' is mentioned in future versions of this course). 
 
 ### Question 27
 
