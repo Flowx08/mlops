@@ -305,8 +305,7 @@ We do not use the GCP bucket for our final project (only for the exercises). For
 >
 > Answer:
 
---- question 20 fill here ---
-TODO
+[Container registry](figures/gcp1.png).
 
 ### Question 21
 
@@ -315,8 +314,7 @@ TODO
 >
 > Answer:
 
---- question 21 fill here ---
-TODO
+[Container registry](figures/gcp2.png).
 
 ### Question 22
 
@@ -357,7 +355,7 @@ The obvious advantages of implementing a monitoring system for our deployed mode
 
 We experienced a lot of issues with deploying our things on Google Cloud. As such, we have not spent particularly much throughout this course. The total expenses incurred are:
 
-INSERT IMAGE HERE
+[Price screenshot](figures/price.png)
 
 We deployed our model using Cloud Run, and were surprised by how expensive it appears to be (we have only had the model deployed for approximately 15 hours when the above screenshot was taken).
 
