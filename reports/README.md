@@ -411,12 +411,13 @@ Far and away the most troublesome part of the project was getting Docker to work
 >
 > Answer length: 50-200 words.
 >
-> Example:
-> *Student sXXXXXX was in charge of developing of setting up the initial cookie cutter project and developing of the*
-> *docker containers for training our applications.*
-> *Student sXXXXXX was in charge of training our models in the cloud and deploying them afterwards.*
-> *All members contributed to code by...*
->
 > Answer:
 
---- question 27 fill here ---
+Our group has consistently worked together on all of the exercises and tasks throughout this course, and so it is hard to point to any particular task that any one person has been responsible for. With that said, certain group members have spent more time than others working on certain tasks for the final project, and these include:
+- Main responsible for final repository structure: s212969.
+- Main responsible for DVC: Everyone, individually.
+- Main responsible for Docker: Everyone, individually.
+- Main responsible for ML Model: Everyone, in collaboration.
+- Main responsible for Unit testing: s133192.
+- Main responsible for Experiment Logging: s212969.
+- Main responsible for Cloud Deployment: s202795.
