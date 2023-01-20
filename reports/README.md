@@ -104,10 +104,10 @@ We used the cookiecutter template and we filled out every folder except the fold
 
 The final structure of our repository is the following:
 - Data/: here we store all the dataset images + other data required for testing. This folder is created and populated after running 'dvc pull'.
-- Models/: here we store all the trained models parameters. This folder is created and populated after running 'dvc pull'.
-- Notebooks/: here we store 2 jupyter notebooks, one used for preliminaty testing of the framework and another one to train contains code to train the model using google collab, by fetching out git repository and running the appropriate scripts.
+- Models/: here we store all the trained models' parameters. This folder is created and populated after running 'dvc pull'.
+- Notebooks/: here we store 2 Jupyter notebooks; one used for preliminaty testing of the framework, and another one to train the model using Google Colab (by fetching our git repository and running the appropriate scripts).
 - requirements.txt: In this file we store all the python3 pip packages needed to run our code and tests.
-- Scripts/: where we store all the utility scripts for building docker, running the code, formatting the style ecc.
+- Scripts/: where we store all the utility scripts for building docker images, running the code, formatting the style, etc.
 - src: the source code for training and deployment.
 - tests: unit testing.
 - app.dockerfile: dockerfile for deployment.
@@ -136,7 +136,7 @@ These concepts are important in larger projects because they help to ensure cons
 >
 > Answer:
 
-We implemented 2 tests: one for testing the loading the dataset and the other one for testing the  loading of the model and the feedforeward pass.
+We implemented 2 tests: one for testing the loading the dataset and the other one for testing the loading of the model and the feed-forward pass.
 
 ### Question 8
 
@@ -146,9 +146,7 @@ We implemented 2 tests: one for testing the loading the dataset and the other on
 > **Answer length: 100-200 words.**
 > Answer:
 
-Our code coverage was 76%. Interestingly most source code files had a coverage of 100% except for src/models/model.py which has a coverage of 56% since we haven't tested all the 
-model methods.
-Even if the code coverage was 100% that would not guarantee that the code is error-free. For example, it is possible for a test suite to be written poorly and not cover all possible scenarios, even if all lines of code are executed. Additionally, 100% code coverage does not take into account other factors such as proper handling of edge cases, security vulnerabilities, and performance issues.
+Our code coverage was 76%. Interestingly most source code files had a coverage of 100% except for src/models/model.py, which has a coverage of 56% since we haven't tested all the model methods. Even if the code coverage was 100% that would not guarantee that the code is error-free. For example, it is possible for a test suite to be written poorly and not cover all possible scenarios, even if all lines of code are executed. Additionally, 100% code coverage does not take into account other factors such as proper handling of edge cases, security vulnerabilities, and performance issues.
 
 ### Question 9
 
@@ -172,7 +170,7 @@ Branches and pull requests can improve version control because they reduce the r
 >
 > Answer:
 
-Yes, we did use DVC for managing the data in our project. It mostly helped us to share the data between us, since datasets are typically too large to be stored on a Git repository. In particular we used it to share the content of the ./data/ folder (containinig the dataset) and the ./models/ folder (containing the trained models parameters).
+Yes, we did use DVC for managing the data in our project. It mostly helped us to share the data between us, since datasets are typically too large to be stored on a Git repository. In particular, we used it to share the content of the ./data/ folder (containinig the dataset) and the ./models/ folder (containing the trained models parameters).
 
 In addition to this, DVC is very useful when needing to reproduce experiment, as it can track and store both inputs, dependencies and parameters, and due to its cache system, each team member can selectively access the parts of the data which are needed, instead of having to download the whole thing.
 
@@ -185,7 +183,7 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > Answer length: 200-300 words.
 > Answer:
 
-No. We ran into some issues with our deployment to GCloud, so we did not have time to complete this step.
+No. We ran into some issues with our deployment to Google Cloud, so we did not have time to complete this step.
 
 We did implement unit tests locally with pytest, but we did not make use of caching, as this was not useful for our particular use-case.
 
@@ -202,7 +200,7 @@ We did implement unit tests locally with pytest, but we did not make use of cach
 > Answer length: 50-100 words.
 > Answer:
 
-We used hydra to store all the hyperparameters for each experiment. When we wanted to run an experiment we would pass the filepath of the config.yaml that we wanted to use, to the training script as  follows:
+We made use of Hydra to store all the hyperparameters for each experiment. When we wanted to run an experiment we would pass the filepath of the config.yaml that we wanted to use to the training script as follows:
 ```
 python3 ./src/models/train_models.py train --config_file=./src/models/config.yaml
 ```
@@ -215,7 +213,7 @@ python3 ./src/models/train_models.py train --config_file=./src/models/config.yam
 > Answer length: 100-200 words.
 > Answer:
 
-Since we used yaml config files to store the experiment parameters and used hydra to load those parameters, reproducing experiments was straightforeward: when reproducing a particular experiment we would pass the appropriate config file path to the python script and all the correct hyperparameters would be used for the training (as explained in the previous answer).
+Since we used YAML config files to store the experiment parameters, and used Hydra to load those parameters, reproducing experiments was straightforward: when reproducing a particular experiment we would pass the appropriate config file path to the python script and all the correct hyperparameters would be used for the training (as explained in the previous answer).
 
 ### Question 14
 
@@ -231,7 +229,7 @@ Since we used yaml config files to store the experiment parameters and used hydr
 
 [Screenshot 2](figures/wandb_screenshot_2.png)
 
-The pictures included show graphs from our logs in weight and bias. In particular we decided to monitor the loss and accuracy on the trainingset and testingset while training.  These metrics are important because they provide a way to evaluate the performance of a model, and help to identify areas where the model can be improved. Additionally, they can be used to compare different models and select the best one for a given task. In particular the loss it's usefull to see if the training is going well. Over time we expect the loss to keep going down if the neural network is converging to a solution. The accuracy on the testset is useful to see the generalization capabilities of the model and to compare it to other trained models in order to choose which one to use for the deployment phase.
+The pictures included show graphs from our logs in Weights & Biases. In particular, we decided to monitor the loss and accuracy on the training set and test set while training. These metrics are important because they provide a way to evaluate the performance of a model, and help to identify areas where the model can be improved. Additionally, they can be used to compare different models and select the best one for a given task. In particular, the loss is useful in seeing if the training is going well. Over time we expect the loss to keep going down if the neural network is converging to a solution. The accuracy on the test set is useful in seeing the generalization capabilities of the model, and to compare it to other trained models in order to choose which one to use for the deployment phase.
 
 ### Question 15
 
@@ -241,8 +239,7 @@ The pictures included show graphs from our logs in weight and bias. In particula
 > Answer length: 100-200 words.
 > Answer:
 
-In our project we made 2 different docker images: one for training the model and one for deploying it with fastapi. The first docker images is created using the config file train.dockerfile
-in our repository while the other one is created using the app.dockerfile. We made some bash script to easily build and run the docker images. We build the image by running ./scripts/docker_app_build.sh and we execute the image by using the script ./scripts/docker_app_run.sh.
+In our project we made 2 different Docker images: one for training the model and one for deploying it with fastAPI. The first Docker image is created using the config file train.dockerfile in our repository, while the other one is created using the app.dockerfile. We made some bash scripts to easily build and run the Docker images. We build the image by running ./scripts/docker_app_build.sh, and we execute the image by using the script ./scripts/docker_app_run.sh.
 
 ### Question 16
 
@@ -252,7 +249,7 @@ in our repository while the other one is created using the app.dockerfile. We ma
 > Answer length: 100-200 words.
 > Answer:
 
-Since our code base was small we did not perform any debudding and most errors could be easily fixed given the python error logs messages. We did use the python debugger (pdb) as exercise on the code and it showed that the code was working as intended.
+Since our codebase was small we did not perform any debugging, and most errors could be easily fixed given the python error logs messages. We did use the python debugger (pdb) as an exercise on the code and it showed that the code was working as intended.
 
 ## Working in the cloud
 
@@ -283,7 +280,7 @@ We used the following GCP services:
 >
 > Answer:
 
-We made use of the Compute Engine for the exercises, but for the deployment of our project, we used GCloud's Cloud Run, since it is better suited for web apps, which is what we created for our project. 
+We made use of the Compute Engine for the exercises, but for the deployment of our project, we used Google Cloud's Cloud Run, since it is better suited for web apps, which is what we created for our project. 
 
 We explain the differences between the Compute Engine and Cloud Run later in this report.
 
@@ -326,7 +323,7 @@ We do not use the GCP bucket for our final project (only for the exercises). For
 > Example:
 > Answer:
 
-We made a REST api to access our model using fastAPI in python. We also made a small web page to send request to the REST api and we served also the web page through fastAPI as a static file. We deployed the app fist locally by running our deployment code with uvicorn http server inside a docker container. We invoced our deployted service using 'docker run' which in turn has uvicorn as entry point that runs our fastapi code. We the deployed the app on the cloud using Google cloud. To do that we send the app image to the container registry and than we executed it with Cloud run service.
+We made a REST API to access our model using fastAPI in python. We also made a small web page to send a request to the REST API, and we also served the web page through fastAPI as a static file. We deployed the app fist locally by running our deployment code with uvicorn http server inside a Docker container. We invoked our deployed service using 'docker run', which in turn has uvicorn as the entry point that runs our fastAPI code. We the deployed the app on the cloud using Google Cloud. To do that we send the app image to the Container Registry and then we executed it with Cloud Run service.
 
 ### Question 23
 
@@ -337,7 +334,7 @@ We made a REST api to access our model using fastAPI in python. We also made a s
 >
 > Answer:
 
-For the final project, we used Weights & Biases for monitoring our model's training progress. However, we do not employ any monitoring for our deployed model on GCloud.
+For the final project, we used Weights & Biases for monitoring our model's training progress. However, we do not employ any monitoring for our deployed model on Google Cloud.
 
 The obvious advantages of implementing a monitoring system for our deployed model is that we can set up alerts that notify us when the model is not performing as intended, and so that we can get insights on how users interact with our deployed model. A monitoring setup could also have alerted us to known problems with production deployments, such as data drifting. We could have also opted to store the images that user upload to our deployed model, such that we could have made improvements to the model over time.
 
@@ -371,19 +368,18 @@ We deployed our model using Cloud Run, and were surprised by how expensive it ap
 >
 > Answer length: 200-400 words
 >
-> Example:
-> *
-> *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
-> *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
->
 > Answer:
 
 [Our System diagram](figures/mlops.png).
+
 Our system has 2 main actors: the developer and the user.
-The developer is able to train the model and test the deployment by pulling the git repository on his machine and running the appropiate docker image for either training or local deployment of the model. The docker container downloads the datasets and the models using DVC, and runs the appropriate code. Weight and Bias is used to monitor the training process.
-The developer can use a script to upload the latest docker image on the Google Container registry to use for cloud deployment. Finally the developer can use Google Run to deploy the image to the cloud so that it is available to be used publicly by any user.
-The user can access the app using a browser. A webpage sends http request to our app
-and the results are returned and displayed to the user.
+
+The developer is able to train the model and test the deployment by pulling the git repository on his machine and running the appropiate Docker image for either training or local deployment of the model. The docker container downloads the datasets and the models using DVC, and runs the appropriate code. Weights & Biases is used to monitor the training process.
+
+The developer can use a script to upload the latest Docker image on the Google Cloud Container Registry to use for cloud deployment. 
+
+Finally the developer can use Google Run to deploy the image to the cloud so that it is available to be used publicly by any user.
+The user can access the app using a browser. A webpage sends a http-request to our app and the results are returned and displayed to the user.
 
 
 ### Question 26
