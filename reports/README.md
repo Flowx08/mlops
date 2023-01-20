@@ -283,8 +283,11 @@ We used the following GCP services:
 >
 > Answer:
 
---- question 18 fill here ---
-TODO
+We made use of the Compute Engine for the exercises, but for the deployment of our project, we used GCloud's Cloud Run, since it is better suited for web apps, which is what we created for our project. 
+
+We explain the differences between the Compute Engine and Cloud Run later in this report.
+
+The VM we used was specified by our Docker image, which was configured on the basis of the publicly available python3.7-slim Docker image, and modified by installing various packages, along with an added dataset and ML model code. 
 
 ### Question 19
 
@@ -293,7 +296,7 @@ TODO
 >
 > Answer:
 
---- question 19 fill here ---
+We do not use the GCP bucket for our final project (only for the exercises). For our project, we used Google Drive.
 
 ### Question 20
 
@@ -340,7 +343,9 @@ We made a REST api to access our model using fastAPI in python. We also made a s
 >
 > Answer:
 
---- question 23 fill here ---
+For the final project, we used Weights & Biases for monitoring our model's training progress. However, we do not employ any monitoring for our deployed model on GCloud.
+
+The obvious advantages of implementing a monitoring system for our deployed model is that we can set up alerts that notify us when the model is not performing as intended, and so that we can get insights on how users interact with our deployed model. A monitoring setup could also have alerted us to known problems with production deployments, such as data drifting. We could have also opted to store the images that user upload to our deployed model, such that we could have made improvements to the model over time.
 
 ### Question 24
 
