@@ -355,7 +355,11 @@ The obvious advantages of implementing a monitoring system for our deployed mode
 >
 > Answer:
 
---- question 24 fill here ---
+We experienced a lot of issues with deploying our things on Google Cloud. As such, we have not spent particularly much throughout this course. The total expenses incurred are:
+
+INSERT IMAGE HERE
+
+We deployed our model using Cloud Run, and were surprised by how expensive it appears to be (we have only had the model deployed for approximately 15 hours when the above screenshot was taken).
 
 ## Overall discussion of project
 
