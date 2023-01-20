@@ -69,7 +69,7 @@ Group 32
 >
 > Answer:
 
-We used the pre-trained EfficientNet B2 model from the list of PyTorch Image Models (https://arxiv.org/abs/1905.11946). We trained the last 2 layer of the EfficientNet B2 model on the task of garbage recognition, while freezing the parameters of the other layers. Using this framework allowed us to reach good classification accuracy (93% on 6 classes) with little training data (around 2000 images).
+We used the pre-trained EfficientNet B2 model from the list of PyTorch Image Models (https://arxiv.org/abs/1905.11946). We trained the last 2 layer of the EfficientNet B2 model on the task of garbage recognition, while freezing the parameters of the other layers. Using this framework allowed us to reach good classification accuracy (93% across 6 classes) with little training data (around 2000 images).
 
 ## Coding environment
 
@@ -83,8 +83,8 @@ We used the pre-trained EfficientNet B2 model from the list of PyTorch Image Mod
 > Answer length: 100-200 words
 > Answer:
 
-For meaning our dependencies we used python3 pip for managing the required packages and DVC for the data dependencies.
-We put all the packages required for the code in a 'requirements.txt' file and the DVC dependencies files in data.dvc and models.dvc.
+For managing our dependencies we used python3 pip for managing the required packages and DVC for the data dependencies.
+We put all the packages required for the code in a 'requirements.txt' file, and put the DVC dependencies files in data.dvc and models.dvc.
 A new team member would just need to do the following to get started:
 - Clone the project's repository onto their local machine.
 - Create a virtual environment using python 3.x
@@ -100,22 +100,23 @@ A new team member would just need to do the following to get started:
 > Answer length: 100-200 words
 > Answer:
 
-We used the cookie cutter template and we filled out every folder except the folder 'references' which was not required since it was a small project and we did not need any reading material to share.
+We used the cookiecutter template and we filled out every folder except the folder 'references', which was not required since it was a small project and we did not need any reading material to share.
+
 The final structure of our repository is the following:
-- Data: here we store all the dataset images + other data required for testing. This folder is created and populated after running 'dvc pull'.
-- Models: here we store all the trained models parameters. This folder is created and populated after running 'dvc pull'.
-- Notebooks: here we store 2 jupyter notebooks, one used for preliminaty testing of the framework and another one to train contains code to train the model using google collab, by fetching out git repository and running the appropriate scripts.
+- Data/: here we store all the dataset images + other data required for testing. This folder is created and populated after running 'dvc pull'.
+- Models/: here we store all the trained models parameters. This folder is created and populated after running 'dvc pull'.
+- Notebooks/: here we store 2 jupyter notebooks, one used for preliminaty testing of the framework and another one to train contains code to train the model using google collab, by fetching out git repository and running the appropriate scripts.
 - requirements.txt: In this file we store all the python3 pip packages needed to run our code and tests.
-- Scripts: where we store all the utility scripts for building docker, running the code, formatting the style ecc
-- src: the source code for training and deployment
-- tests: unit testing
-- app.dockerfile: dockerfile for deployment
-- train.dockerfile: dockerfile for training
+- Scripts/: where we store all the utility scripts for building docker, running the code, formatting the style ecc.
+- src: the source code for training and deployment.
+- tests: unit testing.
+- app.dockerfile: dockerfile for deployment.
+- train.dockerfile: dockerfile for training.
 
 ### Question 6
 
 > **Did you implement any rules for code quality and format? Additionally, explain with your own words why these**
-> **concepts matters in larger projects.**
+> **concepts matter in larger projects.**
 >
 > Answer length: 50-100 words.
 > Answer:
