@@ -225,8 +225,8 @@ Since we used yaml config files to store the experiment parameters and used hydr
 > Answer length: 200-300 words + 1 to 3 screenshots.
 > Answer:
 
-	![[./figures/wandb_screenshot_1.png]]
-	![[./figures/wandb_screenshot_2.png]]
+> [Screenshot 1](figures/wandb_screenshot_1.png)
+> [Screenshot 2](figures/wandb_screenshot_2.png)
 The pictures included show graphs from our logs in weight and bias. In particular we decided to monitor the loss and accuracy on the trainingset and testingset while training.  These metrics are important because they provide a way to evaluate the performance of a model, and help to identify areas where the model can be improved. Additionally, they can be used to compare different models and select the best one for a given task. In particular the loss it's usefull to see if the training is going well. Over time we expect the loss to keep going down if the neural network is converging to a solution. The accuracy on the testset is useful to see the generalization capabilities of the model and to compare it to other trained models in order to choose which one to use for the deployment phase.
 
 ### Question 15
@@ -319,14 +319,9 @@ TODO
 > Answer length: 100-200 words.
 >
 > Example:
-> *For deployment we wrapped our model into application using ... . We first tried locally serving the model, which*
-> *worked. Afterwards we deployed it in the cloud, using ... . To invoke the service an user would call*
-> *`curl -X POST -F "file=@file.json"<weburl>`*
->
 > Answer:
 
---- question 22 fill here ---
-TODO
+We made a REST api to access our model using fastAPI in python. We also made a small web page to send request to the REST api and we served also the web page through fastAPI as a static file. We deployed the app fist locally by running our deployment code with uvicorn http server inside a docker container. We invoced our deployted service using 'docker run' which in turn has uvicorn as entry point that runs our fastapi code. We the deployed the app on the cloud using Google cloud. To do that we send the app image to the container registry and than we executed it with Cloud run service.
 
 ### Question 23
 
@@ -376,7 +371,13 @@ TODO
 >
 > Answer:
 
---- question 25 fill here ---
+[Our System diagram](figures/mlops.png).
+Our system has 2 main actors: the developer and the user.
+The developer is able to train the model and test the deployment by pulling the git repository on his machine and running the appropiate docker image for either training or local deployment of the model. The docker container downloads the datasets and the models using DVC, and runs the appropriate code. Weight and Bias is used to monitor the training process.
+The developer can use a script to upload the latest docker image on the Google Container registry to use for cloud deployment. Finally the developer can use Google Run to deploy the image to the cloud so that it is available to be used publicly by any user.
+The user can access the app using a browser. A webpage sends http request to our app
+and the results are returned and displayed to the user.
+
 
 ### Question 26
 
