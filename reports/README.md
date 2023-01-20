@@ -185,8 +185,9 @@ In addition to this, DVC is very useful when needing to reproduce experiment, as
 > Answer length: 200-300 words.
 > Answer:
 
---- question 11 fill here ---
-TODO
+No. We ran into some issues with our deployment to GCloud, so we did not have time to complete this step.
+
+We did implement unit tests locally with pytest, but we did not make use of caching, as this was not useful for our particular use-case.
 
 ## Running code and tracking experiments
 
@@ -226,8 +227,10 @@ Since we used yaml config files to store the experiment parameters and used hydr
 > Answer length: 200-300 words + 1 to 3 screenshots.
 > Answer:
 
-> [Screenshot 1](figures/wandb_screenshot_1.png)
-> [Screenshot 2](figures/wandb_screenshot_2.png)
+[Screenshot 1](figures/wandb_screenshot_1.png)
+
+[Screenshot 2](figures/wandb_screenshot_2.png)
+
 The pictures included show graphs from our logs in weight and bias. In particular we decided to monitor the loss and accuracy on the trainingset and testingset while training.  These metrics are important because they provide a way to evaluate the performance of a model, and help to identify areas where the model can be improved. Additionally, they can be used to compare different models and select the best one for a given task. In particular the loss it's usefull to see if the training is going well. Over time we expect the loss to keep going down if the neural network is converging to a solution. The accuracy on the testset is useful to see the generalization capabilities of the model and to compare it to other trained models in order to choose which one to use for the deployment phase.
 
 ### Question 15
