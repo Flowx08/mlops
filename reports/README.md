@@ -314,7 +314,7 @@ We do not use the GCP bucket for our final project (only for the exercises). For
 >
 > Answer:
 
-[Container registry](figures/gcp2.png).
+[GCP cloud run build history](figures/gcp2.png).
 
 ### Question 22
 
